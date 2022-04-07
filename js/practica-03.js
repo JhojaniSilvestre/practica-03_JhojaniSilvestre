@@ -31,9 +31,8 @@ function anyadirDefinicion(){
 		let tabla = document.getElementById("tabla");
 		//obtengo el nodo del tbody
 		let tbody = tabla.querySelector("tbody");
-		//obtengo un array con todos los nodos tr
+		//obtengo una coleccion con todos los nodos tr
 		let filas = tbody.getElementsByTagName("tr");
-		let cont = 0;
 
 		/*-------------------------*/
 		let ausente=true; //para comprobar si la palabra se repite
@@ -55,6 +54,7 @@ function anyadirDefinicion(){
 					lista.appendChild(newDef); //se añadirá al final del todo
 				else //sino, añado la nueva def en la posicion correspondiente
 					lista.insertBefore(newDef,todos.item(indice+1));
+				
 			}
 			else if (palabra > todos.item(indice).textContent) {
 				ausente=false;
@@ -106,8 +106,17 @@ function anyadirDefinicion(){
 			newFila.appendChild(newCeldaCont);
 			//asigno el nodo fila al nodo tbody
 			tbody.appendChild(newFila);
-
-
+		}
+		else{
+			for (let i = 0; i < filas.length; i++) {
+				let celdas=filas.item(i).getElementsByTagName("td");
+				if (palabra == celdas.item(0).textContent) {
+					let valorCeldaNum = parseInt(celdas.item(1).textContent,10);
+					let resultado = valorCeldaNum + 1;
+					celdas.item(1).textContent=resultado;
+				}
+				
+			}
 		}
     }
 }
