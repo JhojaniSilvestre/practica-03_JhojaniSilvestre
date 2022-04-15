@@ -14,7 +14,6 @@ function inicio(){
 }
 
 function mostrarProvincias(){
-
 	//obtengo el nodo de la select de comunidades autonomas
 	let c_autonom = document.getElementById("c_autonom");
 	//obtengo el valor del option seleccionado
@@ -39,64 +38,69 @@ function mostrarProvincias(){
     let ga = new Array("La Coruña","Lugo","Orense","Pontevedra");
     let pv = new Array("Bilbao","San Sebastián","Vitoria");
 
+    //obtengo el nodo de la select provincias
+	let select = document.getElementById("provincias");
+
+    /*--------------borrar nodos option de la select provincias ----*/
+    //llamada a la funcion de borrar
+    select = borrar_options(select); //devuelve la select sin nodos option
+    /*--------------------------------------------------------------*/
+
     //compruebo el valor seleccionado para así crear los nodos correspondientes
     if (value_autonom == "md") {
-        una_provincia(md);
+        una_provincia(md,select);
     }
     else if (value_autonom == "mc") {
-        una_provincia(mc);
+        una_provincia(mc,select);
     }
     else if (value_autonom == "as") {
-        una_provincia(as);
+        una_provincia(as,select);
     }
     else if (value_autonom == "nc") {
-        una_provincia(nc);
+        una_provincia(nc,select);
     }
     else if (value_autonom == "cb") {
-        una_provincia(cb);
+        una_provincia(cb,select);
     }
     else if (value_autonom == "ri") {
-        una_provincia(ri);
+        una_provincia(ri,select);
     }
     else if (value_autonom == "ib") {
-        una_provincia(ib);
+        una_provincia(ib,select);
     }
     else if (value_autonom == "an") {
-        varias_provincias(an);
+        varias_provincias(an,select);
     }
     else if (value_autonom == "ar") {
-        varias_provincias(ar);
+        varias_provincias(ar,select);
     }
     else if (value_autonom == "cn") {
-        varias_provincias(cn);
+        varias_provincias(cn,select);
     }
     else if (value_autonom == "cm") {
-        varias_provincias(cm);
+        varias_provincias(cm,select);
     }
     else if (value_autonom == "cl") {
-        varias_provincias(cl);
+        varias_provincias(cl,select);
     }
     else if (value_autonom == "ct") {
-        varias_provincias(ct);
+        varias_provincias(ct,select);
     }
     else if (value_autonom == "vc") {
-        varias_provincias(vc);
+        varias_provincias(vc,select);
     }
     else if (value_autonom == "ex") {
-        varias_provincias(ex);
+        varias_provincias(ex,select);
     }
     else if (value_autonom == "ga") {
-        varias_provincias(ga);
+        varias_provincias(ga,select);
     }
     else if (value_autonom == "pv") {
-        varias_provincias(pv);
+        varias_provincias(pv,select);
     }
 }
 
-function una_provincia(provincia){
-    //obtengo el nodo de la select de comunidades autonomas
-	let select = document.getElementById("provincias");
-    select = borrar_options(select);
+function una_provincia(provincia,select){
     //creo el nuevo nodo option de la select
     let newOption = document.createElement("option");
 	//creo los nodos de texto
@@ -109,10 +113,7 @@ function una_provincia(provincia){
 }
 
 
-function varias_provincias(provincias){
-    //obtengo el nodo de la select de comunidades autonomas
-	let select = document.getElementById("provincias");
-    select = borrar_options(select);
+function varias_provincias(provincias,select){
     for (let index = 0; index < provincias.length; index++) {
         //creo el nuevo nodo option de la select
         let newOption = document.createElement("option");
@@ -126,9 +127,17 @@ function varias_provincias(provincias){
 }
 
 function borrar_options(select){
+    //comprueba que mientras existe al menos un nodo hijo
+    while (select.firstChild) {
+        //borrara todos los nodos hijos
+        select.removeChild(select.firstChild)
+    }
+    //devuelve la select sin nodos hijos
+    return select;
+
+
     //obtengo una coleccion con todos los nodos
 	/*let options = select.getElementsByTagName("option");
-    
     pos = 0;
     //alert(options.length);
     if (options.length > 0) {
@@ -138,13 +147,6 @@ function borrar_options(select){
         }
     }
 */
-//comprueba que mientras existe al menos un nodo hijo
-    while (select.firstChild) {
-        //borrara todos los nodos hijos
-        select.removeChild(select.firstChild)
-    }
-    //devuelve la select sin nodos hijos
-    return select;  
 }
 
 
