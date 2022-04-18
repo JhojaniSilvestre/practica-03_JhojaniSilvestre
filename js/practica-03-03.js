@@ -109,27 +109,41 @@ function mostrarProvincias(){
 
 function anyadir_provincia(provincias,select){
     let options = select.getElementsByTagName("option");
-    //falta ordenar descendente
-    for (let i = 0; i < options.length; i++) {
-        //esto recorre el array provincias a añadir
-        for (let j = 0; j < provincias.length; j++) {
-            //creo el nuevo nodo option de la select
-            let newOption = document.createElement("option");
-            //creo los nodos de texto
-            let textOption=document.createTextNode(provincias[j]);
-            //asigno los nodos texto a los nodos option correspondientes
-            newOption.appendChild(textOption);
-            //asigno el nodo option al nodo select
-            select.appendChild(newOption);
-        }  
-        
-    }
-    if (palabra > todos.item(indice).textContent) {
-    }
-    else{
+    let anyadido = false;
+    let pos = 0;
 
+    for (let i = 0; i < provincias.length; i++) {
+        pos = 0;
+        while (!anyadido && pos < options.length) {
+            //orden descendente
+            if (provincias[i] > options.item(pos).textContent) {
+                anyadido = true;
+                //creo el nuevo nodo option de la select
+                let newOption = document.createElement("option");
+                //creo los nodos de texto
+                let textOption=document.createTextNode(provincias[i]);
+                //asigno los nodos texto a los nodos option correspondientes
+                newOption.appendChild(textOption);
+                //asigno el nodo option al nodo select
+                select.insertBefore(newOption,options.item(pos));
+            
+            }
+            pos++;
+        }
+        if (!anyadido) {
+                //creo el nuevo nodo option de la select
+                let newOption = document.createElement("option");
+                //creo los nodos de texto
+                let textOption=document.createTextNode(provincias[i]);
+                //asigno los nodos texto a los nodos option correspondientes
+                newOption.appendChild(textOption);
+                //asigno el nodo option al nodo select
+                select.appendChild(newOption);
+                
+        }
+        //options = select.getElementsByTagName("option");
+        anyadido = false;
     }
-
 }
 
 function borrar_options(select){
