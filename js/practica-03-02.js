@@ -127,6 +127,7 @@ function varias_provincias(provincias,select){
 }
 
 function borrar_options(select){
+
     //comprueba que mientras existe al menos un nodo hijo
     while (select.firstChild) {
         //borrara todos los nodos hijos
@@ -135,17 +136,18 @@ function borrar_options(select){
     //devuelve la select sin nodos hijos
     return select;
 
-
+/*
     //obtengo una coleccion con todos los nodos
-	/*let options = select.getElementsByTagName("option");
-    pos = 0;
+	let options = select.getElementsByTagName("option");
+    pos = options.length - 1;
     //alert(options.length);
     if (options.length > 0) {
-        while (pos < options.length) {
+        while (options.length > 0) {
             select.removeChild(options.item(pos));
-            pos++;
+            pos--;
         }
     }
+    return select;
 */
 }
 
