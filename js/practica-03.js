@@ -26,26 +26,15 @@ function anyadirDefinicion(){
 		//obtengo todos los nodos dt
 		let todos = lista.getElementsByTagName("dt"); //devuelve una coleccion con todos los dt
 
+		let repite = false;
 		let ausente=true; //para comprobar si la palabra se repite
 		let indice=0;
 		
-		while (ausente && indice < todos.length) {
+		while (ausente && !repite && indice < todos.length) {
 			//si la nueva palabra es igual a una existente
 			if (palabra == todos.item(indice).textContent) {
-				ausente=false;
-				//creo el nodo dd para la definicion
-				let newDef=document.createElement("dd");
-				//creo el nodo text con el valor introducido
-				let textDef=document.createTextNode(definicion);
-				//añado el nodo text al nodo de la nueva definicion
-				newDef.appendChild(textDef);
-				//si el indice donde se encontró es igual a la posicion del ultimo nodo dt
-				if (indice==todos.length -1) 
-					//añado el nodo de la nueva definicion a la lista
-					lista.appendChild(newDef); //se añadirá al final del todo
-				else //sino, añado la nueva def en la posicion correspondiente
-					lista.insertBefore(newDef,todos.item(indice+1));
-				
+				repite = true;
+				ausente = false;
 			}
 			else if (palabra > todos.item(indice).textContent) {
 				ausente=false;
@@ -67,7 +56,7 @@ function anyadirDefinicion(){
 			indice++;
 		}
 		//si la nueva palabra no existe 
-		if (ausente) {
+		if (ausente && !repite) {
 			//creo los nodos elementos (dt y dd) para la palabra y definicion 
 			let neWord=document.createElement("dt");
 			let newDef=document.createElement("dd");
@@ -94,16 +83,37 @@ function anyadirDefinicion(){
 
 		ausente=true;
 		indice=0;
-		while (ausente && indice < filas.length) {
-			let celdas=filas.item(indice).getElementsByTagName("td");
-			if (palabra == celdas.item(0).textContent) {
-				ausente = false;
-				let valorCeldaNum = parseInt(celdas.item(1).textContent,10);
-				let resultado = valorCeldaNum + 1;
-				celdas.item(1).textContent=resultado;
+
+		if (repite) {
+			while (ausente && indice < filas.length) {
+				let celdas=filas.item(indice).getElementsByTagName("td");
+				if (palabra == celdas.item(0).textContent) {
+					ausente = false;
+					let valorCeldaNum = parseInt(celdas.item(1).textContent,10);
+					let resultado = valorCeldaNum + 1;
+					celdas.item(1).textContent=resultado;
+				}
+				else if (palabra < celdas.item(0).textContent) {
+					ausente = false;
+					//creo los nuevos nodos de la tabla
+					let newFila=document.createElement("tr");
+					let newCeldaWord=document.createElement("td");
+					let newCeldaCont=document.createElement("td");
+					//creo los nodos de texto
+					let textWordTable=document.createTextNode(palabra);
+					let textWordNum=document.createTextNode("1");
+					//asigno los nodos texto a los nodos celda correspondientes
+					newCeldaWord.appendChild(textWordTable);
+					newCeldaCont.appendChild(textWordNum);
+					//asigno los nodos celda al nodo fila
+					newFila.appendChild(newCeldaWord);
+					newFila.appendChild(newCeldaCont);
+	
+					tbody.insertBefore(newFila, filas.item(indice));
+				}
+				indice++;
 			}
-			else if (palabra < celdas.item(0).textContent) {
-				ausente = false;
+			if (ausente) {
 				//creo los nuevos nodos de la tabla
 				let newFila=document.createElement("tr");
 				let newCeldaWord=document.createElement("td");
@@ -117,27 +127,10 @@ function anyadirDefinicion(){
 				//asigno los nodos celda al nodo fila
 				newFila.appendChild(newCeldaWord);
 				newFila.appendChild(newCeldaCont);
+				//asigno el nodo fila al nodo tbody
+				tbody.appendChild(newFila);
+			}	
+		}
 
-				tbody.insertBefore(newFila, filas.item(indice));
-			}
-			indice++;
-		}
-		if (ausente) {
-			//creo los nuevos nodos de la tabla
-			let newFila=document.createElement("tr");
-			let newCeldaWord=document.createElement("td");
-			let newCeldaCont=document.createElement("td");
-			//creo los nodos de texto
-			let textWordTable=document.createTextNode(palabra);
-			let textWordNum=document.createTextNode("1");
-			//asigno los nodos texto a los nodos celda correspondientes
-			newCeldaWord.appendChild(textWordTable);
-			newCeldaCont.appendChild(textWordNum);
-			//asigno los nodos celda al nodo fila
-			newFila.appendChild(newCeldaWord);
-			newFila.appendChild(newCeldaCont);
-			//asigno el nodo fila al nodo tbody
-			tbody.appendChild(newFila);
-		}
     }
 }

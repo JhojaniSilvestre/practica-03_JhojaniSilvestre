@@ -22,14 +22,14 @@ function mostrarProvincias(){
     let cb = new Array("Santander");
     let ri = new Array("Logroño");
     let ib = new Array("Palma de Mallorca");
-    let an = new Array("Almería","Cádiz","Córdoba","Granada","Huelva","Jaén","Málaga","Sevilla");
+    let an = new Array("Almeria","Cadiz","Cordoba","Granada","Huelva","Jaen","Malaga","Sevilla");
     let ar = new Array("Huesca","Teruel","Zaragoza");
     let cn = new Array("Santa Cruz de Tenerife","La Palmas de Gran Canaria");
     let cm = new Array("Albacete","Ciudad Real","Cuenca","Guadalajara","Toledo");
-    let cl = new Array("Ávila","Burgos","León","Salamanca","Segovia","Soria","Valladolid","Zamora");
-    let ct = new Array("Barcelona","Gerona","Lérida","Tarragona");
+    let cl = new Array("Avila","Burgos","Leon","Salamanca","Segovia","Soria","Valladolid","Zamora");
+    let ct = new Array("Barcelona","Gerona","Lerida","Tarragona");
     let vc = new Array("Alicante","Castellón de la Plana","Valencia");
-    let ex = new Array("Badajoz","Cáceres");
+    let ex = new Array("Badajoz","Caceres");
     let ga = new Array("La Coruña","Lugo","Orense","Pontevedra");
     let pv = new Array("Bilbao","San Sebastián","Vitoria");
 
@@ -44,70 +44,24 @@ function mostrarProvincias(){
 	let c_autonom = document.getElementById("c_autonom");
 	//obtengo una collection con los option seleccionados
     let value_autonom = c_autonom.selectedOptions;
-    let valor;
     //obtengo el value de los options seleccionados
     if (value_autonom.length > 0) {
+        let valor;
+        let provincias;
         //recorro la colletion obteniendo el valor de cada indice
         for (let i = 0; i < value_autonom.length; i++) {
             valor = value_autonom[i].value;
             //compruebo el valor seleccionado para así crear los nodos correspondientes
-            if (valor == "md") {
-                anyadir_provincia(md,select);
-            }
-            else if (valor == "mc") {
-                anyadir_provincia(mc,select);
-            }
-            else if (valor == "as") {
-                anyadir_provincia(as,select);
-            }
-            else if (valor == "nc") {
-                anyadir_provincia(nc,select);
-            }
-            else if (valor == "cb") {
-                anyadir_provincia(cb,select);
-            }
-            else if (valor == "ri") {
-                anyadir_provincia(ri,select);
-            }
-            else if (valor == "ib") {
-                anyadir_provincia(ib,select);
-            }
-            else if (valor == "an") {
-                anyadir_provincia(an,select);
-            }
-            else if (valor == "ar") {
-                anyadir_provincia(ar,select);
-            }
-            else if (valor == "cn") {
-                anyadir_provincia(cn,select);
-            }
-            else if (valor == "cm") {
-                anyadir_provincia(cm,select);
-            }
-            else if (valor == "cl") {
-                anyadir_provincia(cl,select);
-            }
-            else if (valor == "ct") {
-                anyadir_provincia(ct,select);
-            }
-            else if (valor == "vc") {
-                anyadir_provincia(vc,select);
-            }
-            else if (valor == "ex") {
-                anyadir_provincia(ex,select);
-            }
-            else if (valor == "ga") {
-                anyadir_provincia(ga,select);
-            }
-            else if (valor == "pv") {
-                anyadir_provincia(pv,select);
-            }
+            //eval busca una variable que sea igual al valor del parametro indicado
+            provincias = eval(valor);
+            
+            anyadir_provincias(provincias,select);
 
         }
     }
 }
 
-function anyadir_provincia(provincias,select){
+function anyadir_provincias(provincias,select){
     let options = select.getElementsByTagName("option");
     let anyadido = false;
     let pos = 0;

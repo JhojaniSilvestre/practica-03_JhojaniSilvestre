@@ -5,28 +5,30 @@ else if (document.attachEvent)
 	window.attachEvent("onload",inicio);
 
 function inicio(){
-	let boton=document.getElementById("boton");
+	let boton=document.getElementById("c_autonom");
+    
     //cargo los eventos, por compatibilidad compruebo los dos
 	if (document.addEventListener)
-		boton.addEventListener("click",mostrarProvincias)
+		boton.addEventListener("onchange",mostrarProvincias)
 	else if (document.attachEvent)
-		boton.attachEvent("onclick",mostrarProvincias);
+		boton.attachEvent("onchange",mostrarProvincias);
 }
 
 function mostrarProvincias(){
+    console.log("llegó a mostrar provincias");
 	//obtengo el nodo de la select de comunidades autonomas
 	let c_autonom = document.getElementById("c_autonom");
 	//obtengo el valor del option seleccionado
 	let value_autonom = c_autonom.options[c_autonom.selectedIndex].value;
-
+    
     //creo los arrays con las provincias de cada comunidad autonoma
-    let md = "Madrid";
-    let mc = "Murcia";
-    let as = "Oviedo";
-    let nc = "Pamplona";
-    let cb = "Santander";
-    let ri = "Logroño";
-    let ib = "Palma de Mallorca";
+    let md = new Array("Madrid");
+    let mc = new Array("Murcia");
+    let as = new Array("Oviedo");
+    let nc = new Array("Pamplona");
+    let cb = new Array("Santander");
+    let ri = new Array("Logroño");
+    let ib = new Array("Palma de Mallorca");
     let an = new Array("Almería","Cádiz","Córdoba","Granada","Huelva","Jaén","Málaga","Sevilla");
     let ar = new Array("Huesca","Teruel","Zaragoza");
     let cn = new Array("Santa Cruz de Tenerife","La Palmas de Gran Canaria");
@@ -45,75 +47,13 @@ function mostrarProvincias(){
     //llamada a la funcion de borrar
     select = borrar_options(select); //devuelve la select sin nodos option
     /*--------------------------------------------------------------*/
-
-    //compruebo el valor seleccionado para así crear los nodos correspondientes
-    if (value_autonom == "md") {
-        una_provincia(md,select);
-    }
-    else if (value_autonom == "mc") {
-        una_provincia(mc,select);
-    }
-    else if (value_autonom == "as") {
-        una_provincia(as,select);
-    }
-    else if (value_autonom == "nc") {
-        una_provincia(nc,select);
-    }
-    else if (value_autonom == "cb") {
-        una_provincia(cb,select);
-    }
-    else if (value_autonom == "ri") {
-        una_provincia(ri,select);
-    }
-    else if (value_autonom == "ib") {
-        una_provincia(ib,select);
-    }
-    else if (value_autonom == "an") {
-        varias_provincias(an,select);
-    }
-    else if (value_autonom == "ar") {
-        varias_provincias(ar,select);
-    }
-    else if (value_autonom == "cn") {
-        varias_provincias(cn,select);
-    }
-    else if (value_autonom == "cm") {
-        varias_provincias(cm,select);
-    }
-    else if (value_autonom == "cl") {
-        varias_provincias(cl,select);
-    }
-    else if (value_autonom == "ct") {
-        varias_provincias(ct,select);
-    }
-    else if (value_autonom == "vc") {
-        varias_provincias(vc,select);
-    }
-    else if (value_autonom == "ex") {
-        varias_provincias(ex,select);
-    }
-    else if (value_autonom == "ga") {
-        varias_provincias(ga,select);
-    }
-    else if (value_autonom == "pv") {
-        varias_provincias(pv,select);
-    }
+    //eval busca una variable que sea igual al valor del parametro indicado
+    let provincias = eval(value_autonom);
+    
+    anyadir_provincias(provincias,select);
 }
 
-function una_provincia(provincia,select){
-    //creo el nuevo nodo option de la select
-    let newOption = document.createElement("option");
-	//creo los nodos de texto
-	let textOption=document.createTextNode(provincia);
-    //asigno los nodos texto a los nodos option correspondientes
-	newOption.appendChild(textOption);
-    //asigno el nodo option al nodo select
-	select.appendChild(newOption);
-
-}
-
-
-function varias_provincias(provincias,select){
+function anyadir_provincias(provincias,select){
     for (let index = 0; index < provincias.length; index++) {
         //creo el nuevo nodo option de la select
         let newOption = document.createElement("option");
