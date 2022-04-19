@@ -24,7 +24,7 @@ function anyadirDefinicion(){
 		//obtengo el nodo de la datalistlista por el id
 		let lista = document.getElementById("lista");
 		//obtengo todos los nodos dt
-		let todos = lista.getElementsByTagName("dt"); //devuelve un array
+		let todos = lista.getElementsByTagName("dt"); //devuelve una coleccion con todos los dt
 
 		let ausente=true; //para comprobar si la palabra se repite
 		let indice=0;
