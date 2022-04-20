@@ -9,7 +9,7 @@ function inicio(){
     
     //cargo los eventos, por compatibilidad compruebo los dos
 	if (document.addEventListener)
-		boton.addEventListener("onchange",mostrarProvincias)
+		boton.addEventListener("change",mostrarProvincias)
 	else if (document.attachEvent)
 		boton.attachEvent("onchange",mostrarProvincias);
 }
